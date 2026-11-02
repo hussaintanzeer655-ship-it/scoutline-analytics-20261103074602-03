@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'/>
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<title>Scoutline Analytics</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZG0QK311WX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZG0QK311WX');
+</script>
+<link rel='preload' href='styles.css' as='style'/>
+</head>
+<body>
+  <header class='brand'>
+    <div class='logo'>Scoutline Analytics</div>
+    <nav><a href="#scout">Scout</a><a href="#players">Players</a><a href="#news">News</a></nav>
+  </header>
+  <section class='hero'>
+    <h1>Scout, Compare, Decide</h1>
+    <p>Data-driven player profiles with performance trends and match impact.</p>
+  </section>
+  <section id='scout' class='panel'>
+    <h2>Player Scoutboard</h2>
+    <div class='filters'>
+      <label>Position: <select id='pos'><option>FW</option><option>MF</option><option>DF</option></select></label>
+      <label>Club: <input id='club' placeholder='e.g., Arsenal'/></label>
+      <button onclick='filterScout()'>Filter</button>
+    </div>
+    <div class='grid' id='scoutGrid'>
+      <div class='card playerCard'>A. Smith <span class='sub'>FW</span><br/>G+A 8-4</div>
+      <div class='card playerCard'>L. Chen <span class='sub'>MF</span><br/>P 7.2</div>
+      <div class='card playerCard'>M. Rossi <span class='sub'>DF</span><br/>Tkl 32</div>
+    </div>
+  </section>
+  <section id='players' class='panel'>
+    <h2>Player Profiles</h2>
+    <div class='grid' id='profiles'>
+      <div class='card'>A. Smith<br/><small>FW • 8G/4A</small></div>
+      <div class='card'>L. Chen<br/><small>MF • 7.2 Rating</small></div>
+      <div class='card'>M. Rossi<br/><small>DF • 32 Tackles</small></div>
+    </div>
+  </section>
+  <section id='news' class='panel'>
+    <h2>News</h2>
+    <ul>
+      <li>New scouting metrics unveiled.</li>
+      <li>Top striker performance deltas for 2H season.</li>
+    </ul>
+  </section>
+  <footer class='siteFooter'>
+    <p>&copy; 2026 Scoutline Analytics</p>
+    <button id='darkToggle'>Dark</button>
+  </footer>
+  <div id='detail' class='modal' hidden>
+    <div class='modalContent'>
+      <h3>Player Detail</h3>
+      <p id='detailText'>Open a profile to view stats.</p>
+      <button onclick='closeModal()'>Close</button>
+    </div>
+  </div>
+  <script>
+    function filterScout(){
+      const pos=document.getElementById('pos').value;
+      const club=document.getElementById('club').value.toLowerCase();
+      const grid=document.getElementById('scoutGrid');
+      grid.innerHTML='';
+      const data=[['A. Smith','FW','Arsenal'],['L. Chen','MF','Liverpool'],['M. Rossi','DF','Inter']];
+      data.forEach(r=>{if((pos===r[1])&&(club==''||r[2].toLowerCase().includes(club))){const div=document.createElement('div');div.className='card playerCard';div.innerHTML=r[0]+"<br/><span class='sub'>"+r[1]+"</span>";grid.appendChild(div);}});
+    }
+    document.getElementById('darkToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');});
+  </script>
+</body>
+</html>
